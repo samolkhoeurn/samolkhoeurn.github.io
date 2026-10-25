@@ -8,7 +8,7 @@
 <meta name="theme-color" content="#120a10">
 <meta property="og:title" content="Samol & Sy Ing — 3 January 2027">
 <meta property="og:description" content="Counting down to our wedding day.">
-<meta property="og:image" content="https://samol.me/assets/photos/wedding-01.jpg">
+<meta property="og:image" content="https://samolkhoeurn.github.io/assets/photos/wedding-01.jpg">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23120a10'/%3E%3Cpath d='M32 50s-15-9.3-19-18.5C10.5 25 14.7 18 21.7 18c4 0 6.8 2.2 10.3 6 3.5-3.8 6.3-6 10.3-6 7 0 11.2 7 8.7 13.5C47 40.7 32 50 32 50z' fill='%23f1a7c1'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500&display=swap">
@@ -31,10 +31,23 @@ body{background:var(--bg);color:var(--ink);font-family:"Inter",system-ui,sans-se
   radial-gradient(90% 70% at 50% 60%,rgba(18,10,16,.28) 0%,rgba(18,10,16,.55) 60%,rgba(18,10,16,.82) 100%),
   linear-gradient(180deg,rgba(18,10,16,.45),rgba(18,10,16,.15) 35%,rgba(18,10,16,.75) 100%)}
 canvas#petals{position:fixed;inset:0;z-index:1;pointer-events:none}
-.hero .inner{position:relative;z-index:2;padding:110px 20px 90px;max-width:1100px}
+.hero .inner{position:relative;z-index:2;padding:110px 20px 90px;max-width:1180px;width:100%;display:grid;grid-template-columns:1fr;gap:40px;align-items:center}
+.frame{display:none;position:relative;aspect-ratio:2/3;max-height:76vh;width:100%;max-width:520px;justify-self:center;border-radius:26px;overflow:hidden;
+  box-shadow:0 40px 100px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.14);animation:rise 1.6s .6s both}
+.frame .slide{inset:-4%}
+.frame::after{content:"";position:absolute;inset:0;border-radius:inherit;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08);pointer-events:none}
+@media (min-width:900px){
+  .hero .inner{grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);text-align:left;padding:80px 40px 56px;gap:48px}.hero .copy{min-width:0}
+  .hero .names{font-size:clamp(56px,6.6vw,112px);line-height:1}
+  .hero .names .desk{display:inline}   /* "Samol" on line 1, "& Sy Ing" on line 2 */
+  .hero .num{font-size:clamp(38px,5.6vw,80px)}.hero .unit{padding:12px 6px 10px;min-width:clamp(60px,8.5vw,112px)}.hero .count{gap:18px;justify-content:flex-start}
+  .hero .eyebrow{margin-bottom:14px}.hero .tag{margin-top:10px;margin-left:0}.hero .when{margin-top:18px;margin-left:0}.hero .rule{margin:22px 0}
+  .hero .frame{display:block;max-height:72vh;max-width:none}
+  .hero .slides{filter:blur(26px) brightness(.55) saturate(1.1);transform:scale(1.12)}
+}
 .eyebrow{font-size:13px;letter-spacing:.42em;text-transform:uppercase;opacity:.8;margin-bottom:22px;animation:rise 1.4s .2s both}
-.names{font-family:"Great Vibes",cursive;font-size:clamp(58px,11vw,150px);line-height:1.05;color:#fff;text-shadow:0 6px 40px rgba(0,0,0,.45);animation:rise 1.6s .5s both}
-.names .amp{color:var(--rose);font-size:.75em;margin:0 .08em;display:inline-block;transform:translateY(-.08em)}
+.names{font-family:"Great Vibes",cursive;font-size:clamp(36px,11.5vw,150px);line-height:1.05;white-space:nowrap;color:#fff;text-shadow:0 6px 40px rgba(0,0,0,.45);animation:rise 1.6s .5s both}
+.names .desk{display:none}.names .amp{color:var(--rose);font-size:.75em;margin:0 .08em;display:inline-block;transform:translateY(-.08em)}
 .tag{margin:18px auto 0;font-size:clamp(18px,2.4vw,26px);font-weight:300;letter-spacing:.14em;text-transform:uppercase;opacity:.92;animation:rise 1.6s .8s both}
 .when{margin:26px auto 0;font-size:clamp(16px,2vw,21px);letter-spacing:.08em;opacity:.9;animation:rise 1.6s 1s both}
 .when b{font-weight:500;color:var(--gold)}
@@ -88,8 +101,9 @@ footer .heart{color:var(--rose)}
   <div class="slides" id="slides" aria-hidden="true"></div>
   <div class="veil" aria-hidden="true"></div>
   <div class="inner">
+   <div class="copy">
     <div class="eyebrow">Save the date</div>
-    <h1 class="names"><span id="n1">Samol</span><span class="amp">&amp;</span><span id="n2">Sy Ing</span></h1>
+    <h1 class="names"><span id="n1">Samol</span><br class="desk"><span class="amp">&amp;</span><span id="n2">Sy Ing</span></h1>
     <div class="tag">are getting married</div>
     <div class="when"><b id="whenText">Sunday, 3 January 2027</b><span id="whenPlace"></span></div>
     <div class="rule"></div>
@@ -100,6 +114,8 @@ footer .heart{color:var(--rose)}
       <div class="unit"><span class="num" id="s"><span>00</span></span><span class="lbl">Seconds</span></div>
     </div>
     <div class="married" id="married">Just married ♥</div>
+   </div>
+   <div class="frame" id="frame" aria-hidden="true"></div>
   </div>
   <a class="scroll" href="#story">Scroll</a>
 </header>
@@ -136,7 +152,9 @@ footer .heart{color:var(--rose)}
     place: "",                                   // e.g. "Phnom Penh" (shown after the date when set)
     venue: "Venue to be announced.",
     dress: "To be announced.",
-    photos: ["wedding-01.jpg", "wedding-02.jpg", "wedding-03.jpg", "wedding-04.jpg", "wedding-05.jpg"],  // files in /assets/photos/
+    photos: ["wedding-01.jpg", "wedding-02.jpg", "wedding-03.jpg", "wedding-04.jpg", "wedding-05.jpg", "wedding-06.jpg", "wedding-07.jpg", "wedding-08.jpg", "wedding-09.jpg"],  // gallery, files in /assets/photos/
+    hero: ["wedding-01.jpg", "wedding-02.jpg", "wedding-03.jpg", "wedding-04.jpg", "wedding-05.jpg", "wedding-07.jpg", "wedding-06.jpg", "wedding-08.jpg"],  // slideshow order
+    focus: { "wedding-01.jpg": "center 38%", "wedding-02.jpg": "center 40%", "wedding-04.jpg": "center 35%", "wedding-05.jpg": "center 42%", "wedding-06.jpg": "center 35%", "wedding-07.jpg": "center 30%", "wedding-08.jpg": "center 30%" },  // where to keep in view when cropped
     slideSeconds: 7,
   };
   // ===================================
@@ -151,12 +169,14 @@ footer .heart{color:var(--rose)}
 
   // ---------- slideshow with crossfade + Ken Burns ----------
   const slidesEl = $("slides"), kb = ["kb-a", "kb-b", "kb-c"];
-  const slides = CONFIG.photos.map((f, i) => { const d = document.createElement("div"); d.className = "slide"; d.style.backgroundImage = `url("${P(f)}")`; slidesEl.appendChild(d); return d; });
+  const HERO = CONFIG.hero || CONFIG.photos, frameEl = $("frame");
+  const mkSlides = (parent, focus) => HERO.map((f) => { const d = document.createElement("div"); d.className = "slide"; d.style.backgroundImage = `url("${P(f)}")`; d.style.backgroundPosition = focus ? ((CONFIG.focus || {})[f] || "center") : "center"; parent.appendChild(d); return d; });
+  const slides = mkSlides(slidesEl, true), framed = mkSlides(frameEl, false);
   let cur = 0;
-  function show(i) { slides.forEach((s, k) => { s.classList.toggle("on", k === i); if (k === i) { s.className = "slide on " + kb[i % 3]; } }); }
+  function show(i) { [slides, framed].forEach((set) => set.forEach((s, k) => { s.classList.toggle("on", k === i); if (k === i) s.className = "slide on " + kb[i % 3]; })); }
   show(0);
   // preload the rest, then start rotating
-  Promise.all(CONFIG.photos.slice(1).map((f) => new Promise((r) => { const im = new Image(); im.onload = im.onerror = r; im.src = P(f); })))
+  Promise.all(HERO.slice(1).map((f) => new Promise((r) => { const im = new Image(); im.onload = im.onerror = r; im.src = P(f); })))
     .then(() => setInterval(() => { cur = (cur + 1) % slides.length; show(cur); }, CONFIG.slideSeconds * 1000));
 
   // ---------- countdown ----------

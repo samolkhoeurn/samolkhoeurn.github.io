@@ -1,0 +1,5 @@
+# originals stay on disk but are not pushed (90 MB)
+wedding/Pre-wedding/
+wedding/_review-sheet.jpg
+.DS_Store
+Thumbs.db
