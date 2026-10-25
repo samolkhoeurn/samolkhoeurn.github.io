@@ -1,0 +1,17 @@
+/* Shared bits for samol.me — fonts, reset, the corner navigation pill, reduced-motion support */
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:"Inter","Kantumruy Pro",system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+img{display:block;max-width:100%}
+:focus-visible{outline:2px solid #e2b236;outline-offset:3px;border-radius:6px}
+
+/* Corner navigation (top-right), used on every page */
+.sitenav{position:fixed;top:18px;right:18px;z-index:50;display:flex;gap:6px;padding:6px;border-radius:999px;
+  background:rgba(12,14,20,.42);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.14)}
+.sitenav a{color:#fff;text-decoration:none;font-size:13px;font-weight:600;letter-spacing:.02em;padding:8px 14px;border-radius:999px;opacity:.85;transition:background .25s,opacity .25s}
+.sitenav a:hover,.sitenav a[aria-current="page"]{background:rgba(255,255,255,.16);opacity:1}
+@media (max-width:560px){.sitenav{top:12px;right:12px;left:12px;justify-content:center}.sitenav a{padding:8px 11px;font-size:12px}}
+
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}

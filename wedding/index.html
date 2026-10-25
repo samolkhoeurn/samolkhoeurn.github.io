@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Samol & Sy Ing · 3 January 2027</title>
+<meta name="description" content="We are getting married on 3 January 2027 — counting down the days.">
+<meta name="theme-color" content="#120a10">
+<meta property="og:title" content="Samol & Sy Ing — 3 January 2027">
+<meta property="og:description" content="Counting down to our wedding day.">
+<meta property="og:image" content="https://samol.me/assets/photos/wedding-01.jpg">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23120a10'/%3E%3Cpath d='M32 50s-15-9.3-19-18.5C10.5 25 14.7 18 21.7 18c4 0 6.8 2.2 10.3 6 3.5-3.8 6.3-6 10.3-6 7 0 11.2 7 8.7 13.5C47 40.7 32 50 32 50z' fill='%23f1a7c1'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500&display=swap">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+:root{--rose:#f1a7c1;--gold:#e8c27a;--ink:#fbf6f2;--bg:#120a10}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:"Inter",system-ui,sans-serif}
+.serif{font-family:"Cormorant Garamond",Georgia,serif}
+/* ---------- hero with photo slideshow ---------- */
+.hero{position:relative;min-height:100svh;display:grid;place-items:center;text-align:center;overflow:hidden;isolation:isolate}
+.slides{position:absolute;inset:0;z-index:-2}
+.slide{position:absolute;inset:-5%;background-position:center;background-size:cover;opacity:0;transition:opacity 2.2s ease-in-out;will-change:transform,opacity}
+.slide.on{opacity:1}
+.slide.kb-a{animation:kbA 16s linear forwards}.slide.kb-b{animation:kbB 16s linear forwards}.slide.kb-c{animation:kbC 16s linear forwards}
+@keyframes kbA{from{transform:scale(1.02) translate(0,0)}to{transform:scale(1.12) translate(-2%,-1%)}}
+@keyframes kbB{from{transform:scale(1.12) translate(2%,1%)}to{transform:scale(1.02) translate(0,0)}}
+@keyframes kbC{from{transform:scale(1.04) translate(-1%,1.5%)}to{transform:scale(1.12) translate(1.5%,-1%)}}
+.veil{position:absolute;inset:0;z-index:-1;background:
+  radial-gradient(90% 70% at 50% 60%,rgba(18,10,16,.28) 0%,rgba(18,10,16,.55) 60%,rgba(18,10,16,.82) 100%),
+  linear-gradient(180deg,rgba(18,10,16,.45),rgba(18,10,16,.15) 35%,rgba(18,10,16,.75) 100%)}
+canvas#petals{position:fixed;inset:0;z-index:1;pointer-events:none}
+.hero .inner{position:relative;z-index:2;padding:110px 20px 90px;max-width:1100px}
+.eyebrow{font-size:13px;letter-spacing:.42em;text-transform:uppercase;opacity:.8;margin-bottom:22px;animation:rise 1.4s .2s both}
+.names{font-family:"Great Vibes",cursive;font-size:clamp(58px,11vw,150px);line-height:1.05;color:#fff;text-shadow:0 6px 40px rgba(0,0,0,.45);animation:rise 1.6s .5s both}
+.names .amp{color:var(--rose);font-size:.75em;margin:0 .08em;display:inline-block;transform:translateY(-.08em)}
+.tag{margin:18px auto 0;font-size:clamp(18px,2.4vw,26px);font-weight:300;letter-spacing:.14em;text-transform:uppercase;opacity:.92;animation:rise 1.6s .8s both}
+.when{margin:26px auto 0;font-size:clamp(16px,2vw,21px);letter-spacing:.08em;opacity:.9;animation:rise 1.6s 1s both}
+.when b{font-weight:500;color:var(--gold)}
+.rule{width:72px;height:1px;margin:30px auto;background:linear-gradient(90deg,transparent,var(--gold),transparent);animation:rise 1.6s 1.1s both}
+/* countdown */
+.count{display:flex;justify-content:center;gap:clamp(10px,3vw,34px);margin-top:6px;animation:rise 1.6s 1.2s both}
+.unit{min-width:clamp(64px,14vw,150px);padding:16px 8px 14px;border-radius:18px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.num{font-family:"Cormorant Garamond",serif;font-weight:500;font-size:clamp(44px,9vw,104px);line-height:1;font-variant-numeric:lining-nums tabular-nums;display:block;height:1em;overflow:hidden;position:relative}
+.num span{display:block;transition:transform .5s cubic-bezier(.2,.8,.2,1),opacity .5s}
+.num.flip span.out{transform:translateY(-100%);opacity:0;position:absolute;inset:0}
+.num.flip span.in{animation:rollIn .5s cubic-bezier(.2,.8,.2,1)}
+@keyframes rollIn{from{transform:translateY(100%);opacity:0}to{transform:none;opacity:1}}
+.lbl{display:block;margin-top:8px;font-size:11px;letter-spacing:.3em;text-transform:uppercase;opacity:.72}
+.married{display:none;font-family:"Great Vibes",cursive;font-size:clamp(40px,7vw,90px);color:var(--rose)}
+.scroll{position:absolute;left:50%;bottom:26px;transform:translateX(-50%);z-index:2;font-size:11px;letter-spacing:.3em;text-transform:uppercase;opacity:.65;text-decoration:none;color:#fff;animation:bob 2.4s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,6px)}}
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+/* ---------- sections ---------- */
+section.block{position:relative;z-index:2;padding:clamp(70px,10vw,120px) 20px;max-width:1100px;margin:0 auto}
+h2{font-family:"Great Vibes",cursive;font-weight:400;font-size:clamp(44px,6vw,72px);color:var(--rose);text-align:center;margin:0 0 10px}
+.lead{text-align:center;max-width:640px;margin:0 auto 46px;font-family:"Cormorant Garamond",serif;font-size:clamp(19px,2.2vw,24px);line-height:1.6;opacity:.9}
+.reveal{opacity:0;transform:translateY(26px);transition:opacity 1s ease,transform 1s cubic-bezier(.2,.8,.2,1)}
+.reveal.in{opacity:1;transform:none}
+/* gallery */
+.gallery{columns:3 280px;column-gap:14px}
+.gallery figure{margin:0 0 14px;break-inside:avoid;border-radius:14px;overflow:hidden;position:relative;cursor:zoom-in;box-shadow:0 20px 50px rgba(0,0,0,.35)}
+.gallery img{width:100%;height:auto;transition:transform 1.2s cubic-bezier(.2,.8,.2,1),filter 1.2s}
+.gallery figure:hover img{transform:scale(1.05);filter:brightness(1.06)}
+.light{position:fixed;inset:0;z-index:60;background:rgba(8,4,7,.92);display:none;place-items:center;padding:20px;cursor:zoom-out}
+.light.on{display:grid}
+.light img{max-width:min(96vw,1400px);max-height:92vh;border-radius:10px;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+/* details */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+.card{padding:26px 24px;border-radius:18px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12)}
+.card h3{margin:0 0 8px;font-family:"Cormorant Garamond",serif;font-weight:500;font-size:24px;color:var(--gold)}
+.card p{margin:0;line-height:1.65;opacity:.9;font-size:15.5px}
+.btn{display:inline-block;margin-top:14px;padding:11px 18px;border-radius:999px;border:1px solid rgba(255,255,255,.3);color:#fff;text-decoration:none;font-size:13.5px;letter-spacing:.06em;transition:background .3s,border-color .3s}
+.btn:hover{background:rgba(255,255,255,.12);border-color:var(--gold)}
+footer{position:relative;z-index:2;text-align:center;padding:40px 20px 60px;font-family:"Cormorant Garamond",serif;font-size:18px;opacity:.75}
+footer .heart{color:var(--rose)}
+@media (max-width:560px){.unit{padding:12px 4px 10px;border-radius:14px}.lbl{font-size:9.5px;letter-spacing:.2em}}
+</style>
+</head>
+<body>
+<nav class="sitenav" aria-label="Site">
+  <a href="/home/">Home</a><a href="/wedding/" aria-current="page">Wedding</a><a href="/quiz/">Quiz</a><a href="/career/">Career</a>
+</nav>
+<canvas id="petals" aria-hidden="true"></canvas>
+
+<header class="hero" id="top">
+  <div class="slides" id="slides" aria-hidden="true"></div>
+  <div class="veil" aria-hidden="true"></div>
+  <div class="inner">
+    <div class="eyebrow">Save the date</div>
+    <h1 class="names"><span id="n1">Samol</span><span class="amp">&amp;</span><span id="n2">Sy Ing</span></h1>
+    <div class="tag">are getting married</div>
+    <div class="when"><b id="whenText">Sunday, 3 January 2027</b><span id="whenPlace"></span></div>
+    <div class="rule"></div>
+    <div class="count" id="count" role="timer" aria-live="off">
+      <div class="unit"><span class="num" id="d"><span>000</span></span><span class="lbl">Days</span></div>
+      <div class="unit"><span class="num" id="h"><span>00</span></span><span class="lbl">Hours</span></div>
+      <div class="unit"><span class="num" id="m"><span>00</span></span><span class="lbl">Minutes</span></div>
+      <div class="unit"><span class="num" id="s"><span>00</span></span><span class="lbl">Seconds</span></div>
+    </div>
+    <div class="married" id="married">Just married ♥</div>
+  </div>
+  <a class="scroll" href="#story">Scroll</a>
+</header>
+
+<section class="block" id="story">
+  <h2 class="reveal">Our story</h2>
+  <p class="lead reveal" id="storyText">Two people, one road, and a date circled on the calendar. We would love you to share the day with us.</p>
+</section>
+
+<section class="block" id="gallery">
+  <h2 class="reveal">Moments</h2>
+  <div class="gallery" id="grid"></div>
+</section>
+
+<section class="block" id="details">
+  <h2 class="reveal">The day</h2>
+  <div class="cards">
+    <div class="card reveal"><h3>When</h3><p id="detWhen">Sunday, 3 January 2027</p><a class="btn" href="#" id="ics">Add to calendar</a></div>
+    <div class="card reveal"><h3>Where</h3><p id="detWhere">Venue to be announced.</p></div>
+    <div class="card reveal"><h3>Dress code</h3><p id="detDress">To be announced.</p></div>
+  </div>
+</section>
+
+<div class="light" id="light" role="dialog" aria-label="Photo"><img id="lightImg" alt=""></div>
+<footer>With love, <span id="footNames">Samol &amp; Sy Ing</span> <span class="heart">♥</span> 03 · 01 · 2027</footer>
+
+<script>
+(() => {
+  // ============ EDIT HERE ============
+  const CONFIG = {
+    names: ["Samol", "Sy Ing"],                 // the two names as they should appear
+    date: "2027-01-03T00:00:00+07:00",           // wedding day (Cambodia time)
+    dateText: "Sunday, 3 January 2027",
+    place: "",                                   // e.g. "Phnom Penh" (shown after the date when set)
+    venue: "Venue to be announced.",
+    dress: "To be announced.",
+    photos: ["wedding-01.jpg", "wedding-02.jpg", "wedding-03.jpg", "wedding-04.jpg", "wedding-05.jpg"],  // files in /assets/photos/
+    slideSeconds: 7,
+  };
+  // ===================================
+  const $ = (id) => document.getElementById(id);
+  const P = (f) => `../assets/photos/${f}`;
+  $("n1").textContent = CONFIG.names[0]; $("n2").textContent = CONFIG.names[1];
+  $("footNames").textContent = `${CONFIG.names[0]} & ${CONFIG.names[1]}`;
+  document.title = `${CONFIG.names[0]} & ${CONFIG.names[1]} · 3 January 2027`;
+  $("whenText").textContent = CONFIG.dateText; $("detWhen").textContent = CONFIG.dateText + (CONFIG.place ? ` · ${CONFIG.place}` : "");
+  if (CONFIG.place) $("whenPlace").textContent = ` · ${CONFIG.place}`;
+  $("detWhere").textContent = CONFIG.venue; $("detDress").textContent = CONFIG.dress;
+
+  // ---------- slideshow with crossfade + Ken Burns ----------
+  const slidesEl = $("slides"), kb = ["kb-a", "kb-b", "kb-c"];
+  const slides = CONFIG.photos.map((f, i) => { const d = document.createElement("div"); d.className = "slide"; d.style.backgroundImage = `url("${P(f)}")`; slidesEl.appendChild(d); return d; });
+  let cur = 0;
+  function show(i) { slides.forEach((s, k) => { s.classList.toggle("on", k === i); if (k === i) { s.className = "slide on " + kb[i % 3]; } }); }
+  show(0);
+  // preload the rest, then start rotating
+  Promise.all(CONFIG.photos.slice(1).map((f) => new Promise((r) => { const im = new Image(); im.onload = im.onerror = r; im.src = P(f); })))
+    .then(() => setInterval(() => { cur = (cur + 1) % slides.length; show(cur); }, CONFIG.slideSeconds * 1000));
+
+  // ---------- countdown ----------
+  const target = new Date(CONFIG.date).getTime();
+  const set = (id, v, w) => { const el = $(id), txt = String(v).padStart(w, "0"), old = el.querySelector("span:not(.out)"); if (old && old.textContent === txt) return;
+    if (old) { old.classList.add("out"); setTimeout(() => old.remove(), 500); } const n = document.createElement("span"); n.className = "in"; n.textContent = txt; el.classList.add("flip"); el.appendChild(n); };
+  function tick() {
+    const diff = target - Date.now();
+    if (diff <= 0) { $("count").style.display = "none"; $("married").style.display = "block"; document.querySelector(".tag").textContent = "are married"; document.querySelector(".eyebrow").textContent = "3 January 2027"; return; }
+    const d = Math.floor(diff / 864e5), h = Math.floor(diff / 36e5) % 24, m = Math.floor(diff / 6e4) % 60, s = Math.floor(diff / 1e3) % 60;
+    set("d", d, d >= 100 ? 3 : 2); set("h", h, 2); set("m", m, 2); set("s", s, 2);
+    setTimeout(tick, 1000 - (Date.now() % 1000));
+  }
+  tick();
+
+  // ---------- petals ----------
+  const cv = $("petals"), ctx = cv.getContext("2d"); let W, H, petals = [], hearts = [];
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function resize() { W = cv.width = innerWidth * devicePixelRatio; H = cv.height = innerHeight * devicePixelRatio; cv.style.width = innerWidth + "px"; cv.style.height = innerHeight + "px"; }
+  resize(); addEventListener("resize", resize);
+  const N = reduce ? 0 : Math.min(48, Math.round(innerWidth / 28));
+  const mk = (top) => ({ x: Math.random() * W, y: top ? -40 : Math.random() * H, r: (5 + Math.random() * 8) * devicePixelRatio, a: Math.random() * Math.PI * 2, va: (Math.random() - .5) * .04, vy: (.35 + Math.random() * .7) * devicePixelRatio, sway: Math.random() * Math.PI * 2, sv: .008 + Math.random() * .012, amp: (10 + Math.random() * 24) * devicePixelRatio, hue: 330 + Math.random() * 25, al: .45 + Math.random() * .4 });
+  for (let i = 0; i < N; i++) petals.push(mk(false));
+  function petal(p) { ctx.save(); ctx.translate(p.x + Math.sin(p.sway) * p.amp, p.y); ctx.rotate(p.a); ctx.fillStyle = `hsla(${p.hue},80%,82%,${p.al})`; ctx.beginPath();
+    ctx.moveTo(0, -p.r); ctx.bezierCurveTo(p.r, -p.r, p.r, p.r * .6, 0, p.r); ctx.bezierCurveTo(-p.r, p.r * .6, -p.r, -p.r, 0, -p.r); ctx.fill(); ctx.restore(); }
+  function heart(hh) { ctx.save(); ctx.translate(hh.x, hh.y); ctx.scale(hh.s, hh.s); ctx.globalAlpha = hh.al; ctx.fillStyle = "#f1a7c1"; ctx.beginPath();
+    ctx.moveTo(0, 6); ctx.bezierCurveTo(-12, -6, -8, -16, 0, -10); ctx.bezierCurveTo(8, -16, 12, -6, 0, 6); ctx.fill(); ctx.restore(); }
+  function frame() {
+    ctx.clearRect(0, 0, W, H);
+    for (const p of petals) { p.y += p.vy; p.a += p.va; p.sway += p.sv; if (p.y > H + 40) Object.assign(p, mk(true)); petal(p); }
+    hearts = hearts.filter((hh) => hh.al > 0); for (const hh of hearts) { hh.y -= 1.2 * devicePixelRatio; hh.al -= .012; hh.s += .01; heart(hh); }
+    if (petals.length || hearts.length) requestAnimationFrame(frame);
+  }
+  if (N) requestAnimationFrame(frame);
+  addEventListener("pointerdown", (e) => { if (e.target.closest("a,button,.gallery,.light")) return; for (let i = 0; i < 7; i++) hearts.push({ x: e.clientX * devicePixelRatio + (Math.random() - .5) * 40, y: e.clientY * devicePixelRatio, s: (1 + Math.random()) * devicePixelRatio, al: .9 }); if (!petals.length) requestAnimationFrame(frame); });
+
+  // ---------- gallery + lightbox ----------
+  const grid = $("grid"), light = $("light"), lightImg = $("lightImg");
+  CONFIG.photos.forEach((f, i) => { const fig = document.createElement("figure"); fig.className = "reveal"; fig.style.transitionDelay = (i % 3) * 120 + "ms";
+    const im = document.createElement("img"); im.loading = "lazy"; im.src = P(f); im.alt = `Pre-wedding photo ${i + 1}`; fig.appendChild(im); grid.appendChild(fig);
+    fig.addEventListener("click", () => { lightImg.src = P(f); light.classList.add("on"); }); });
+  light.addEventListener("click", () => light.classList.remove("on"));
+  addEventListener("keydown", (e) => { if (e.key === "Escape") light.classList.remove("on"); });
+
+  // ---------- scroll reveal ----------
+  const io = new IntersectionObserver((es) => es.forEach((en) => { if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); } }), { threshold: .12 });
+  document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
+
+  // ---------- add to calendar (.ics) ----------
+  $("ics").addEventListener("click", (e) => { e.preventDefault();
+    const ics = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//samol.me//wedding//EN", "BEGIN:VEVENT", `UID:wedding-20270103@samol.me`, `DTSTAMP:${new Date().toISOString().replace(/[-:]/g, "").slice(0, 15)}Z`,
+      "DTSTART;VALUE=DATE:20270103", "DTEND;VALUE=DATE:20270104", `SUMMARY:Wedding of ${CONFIG.names[0]} & ${CONFIG.names[1]}`, `LOCATION:${CONFIG.place || ""}`, "URL:https://samol.me/wedding/", "END:VEVENT", "END:VCALENDAR"].join("\r\n");
+    const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([ics], { type: "text/calendar" })); a.download = "wedding-3-jan-2027.ics"; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 1000); });
+})();
+</script>
+</body>
+</html>
