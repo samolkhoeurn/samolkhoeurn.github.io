@@ -34,7 +34,15 @@ canvas#petals{position:fixed;inset:0;z-index:1;pointer-events:none}
 .hero .inner{position:relative;z-index:2;padding:110px 20px 90px;max-width:1180px;width:100%;display:grid;grid-template-columns:1fr;gap:40px;align-items:center}
 .frame{display:none;position:relative;aspect-ratio:2/3;max-height:76vh;width:100%;max-width:520px;justify-self:center;border-radius:26px;overflow:hidden;
   box-shadow:0 40px 100px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.14);animation:rise 1.6s .6s both}
-.frame .slide{inset:-4%}
+.frame .slide{inset:0;transform-origin:50% 45%}
+/* photos whose heads sit near the top edge: blurred copy fills the frame, sharp photo slightly inset so there is air above the head */
+.frame .slide.pad{background:none}
+.frame .slide.pad b{position:absolute;inset:-10%;background:var(--img) center/cover no-repeat;filter:blur(16px) brightness(.85)}
+.frame .slide.pad i{position:absolute;inset:7% 4% 3%;background:var(--img) center/contain no-repeat;box-shadow:0 18px 50px rgba(0,0,0,.35)}
+.frame .slide.kb-a{animation:fkA 16s linear forwards}.frame .slide.kb-b{animation:fkB 16s linear forwards}.frame .slide.kb-c{animation:fkC 16s linear forwards}
+@keyframes fkA{from{transform:scale(1)}to{transform:scale(1.07)}}
+@keyframes fkB{from{transform:scale(1.07)}to{transform:scale(1)}}
+@keyframes fkC{from{transform:scale(1.02)}to{transform:scale(1.08)}}
 .frame::after{content:"";position:absolute;inset:0;border-radius:inherit;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08);pointer-events:none}
 @media (min-width:900px){
   .hero .inner{grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);text-align:left;padding:80px 40px 56px;gap:48px}.hero .copy{min-width:0}
@@ -153,6 +161,7 @@ footer .heart{color:var(--rose)}
     dress: "To be announced.",
     photos: ["wedding-01.jpg", "wedding-02.jpg", "wedding-03.jpg", "wedding-04.jpg", "wedding-05.jpg", "wedding-06.jpg", "wedding-07.jpg", "wedding-08.jpg", "wedding-09.jpg"],  // gallery, files in /assets/photos/
     hero: ["wedding-01.jpg", "wedding-02.jpg", "wedding-03.jpg", "wedding-04.jpg", "wedding-05.jpg", "wedding-07.jpg", "wedding-06.jpg", "wedding-08.jpg"],  // slideshow order
+    anchor: { "wedding-07.jpg": 1, "wedding-08.jpg": 1 },  // framed photo: show these slightly inset over a blurred copy, so heads near the top edge get some air
     focus: { "wedding-01.jpg": "center 38%", "wedding-02.jpg": "center 40%", "wedding-04.jpg": "center 35%", "wedding-05.jpg": "center 42%", "wedding-06.jpg": "center 35%", "wedding-07.jpg": "center 30%", "wedding-08.jpg": "center 30%" },  // where to keep in view when cropped
     slideSeconds: 7,
   };
@@ -169,7 +178,7 @@ footer .heart{color:var(--rose)}
   // ---------- slideshow with crossfade + Ken Burns ----------
   const slidesEl = $("slides"), kb = ["kb-a", "kb-b", "kb-c"];
   const HERO = CONFIG.hero || CONFIG.photos, frameEl = $("frame");
-  const mkSlides = (parent, focus) => HERO.map((f) => { const d = document.createElement("div"); d.className = "slide"; d.style.backgroundImage = `url("${P(f)}")`; d.style.backgroundPosition = focus ? ((CONFIG.focus || {})[f] || "center") : "center"; parent.appendChild(d); return d; });
+  const mkSlides = (parent, focus) => HERO.map((f) => { const d = document.createElement("div"); d.className = "slide"; d.style.backgroundImage = `url("${P(f)}")`; d.style.backgroundPosition = focus ? ((CONFIG.focus || {})[f] || "center") : "center"; if (!focus && (CONFIG.anchor || {})[f]) { d.classList.add("pad"); d.style.setProperty("--img", `url("${P(f)}")`); d.innerHTML = "<b></b><i></i>"; } parent.appendChild(d); return d; });
   const slides = mkSlides(slidesEl, true), framed = mkSlides(frameEl, false);
   let cur = 0;
   function show(i) { [slides, framed].forEach((set) => set.forEach((s, k) => { s.classList.toggle("on", k === i); if (k === i) s.className = "slide on " + kb[i % 3]; })); }
