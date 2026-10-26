@@ -11,7 +11,7 @@
 <meta property="og:image" content="https://samolkhoeurn.github.io/assets/photos/wedding-01.jpg">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23120a10'/%3E%3Cpath d='M32 50s-15-9.3-19-18.5C10.5 25 14.7 18 21.7 18c4 0 6.8 2.2 10.3 6 3.5-3.8 6.3-6 10.3-6 7 0 11.2 7 8.7 13.5C47 40.7 32 50 32 50z' fill='%23f1a7c1'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500&family=Kantumruy+Pro:wght@400;500&display=swap">
 <link rel="stylesheet" href="../assets/site.css">
 <style>
 :root{--rose:#f1a7c1;--gold:#e8c27a;--ink:#fbf6f2;--bg:#120a10}
@@ -86,6 +86,17 @@ h2{font-family:"Great Vibes",cursive;font-weight:400;font-size:clamp(44px,6vw,72
 .light{position:fixed;inset:0;z-index:60;background:rgba(8,4,7,.92);display:none;place-items:center;padding:20px;cursor:zoom-out}
 .light.on{display:grid}
 .light img{max-width:min(96vw,1400px);max-height:92vh;border-radius:10px;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+/* programme */
+.prog{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px}
+.day{padding:26px 24px 18px;border-radius:20px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12)}
+.day h3{margin:0 0 4px;font-family:"Cormorant Garamond",serif;font-weight:500;font-size:26px;color:var(--gold)}
+.day .km{font-family:"Kantumruy Pro","Inter",sans-serif;font-size:15px;opacity:.85;margin-bottom:16px;line-height:1.6}
+.day ol{list-style:none;margin:0;padding:0}
+.day li{display:grid;grid-template-columns:76px 1fr;gap:12px;padding:11px 0;border-top:1px solid rgba(255,255,255,.08)}
+.day li:first-child{border-top:0}
+.day time{font-family:"Cormorant Garamond",serif;font-size:20px;font-weight:600;color:var(--gold);font-variant-numeric:lining-nums tabular-nums;white-space:nowrap}
+.day .t{font-family:"Kantumruy Pro","Inter",sans-serif;font-size:15.5px;line-height:1.6}
+.day .e{display:block;font-size:13.5px;opacity:.72;margin-top:2px;line-height:1.5}
 /* details */
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
 .card{padding:26px 24px;border-radius:18px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12)}
@@ -137,6 +148,36 @@ footer .heart{color:var(--rose)}
   <div class="gallery" id="grid"></div>
 </section>
 
+<section class="block" id="programme">
+  <h2 class="reveal">Programme</h2>
+  <p class="lead reveal"><span style="font-family:'Kantumruy Pro',sans-serif;font-size:.85em">កម្មវិធីសិរីមង្គលអាពាហ៍ពិពាហ៍</span><br>The traditional Khmer wedding ceremony, over two days.</p>
+  <div class="prog">
+    <div class="day reveal">
+      <h3>Day 1 · Saturday, 2 January 2027</h3>
+      <div class="km">កម្មវិធីទី១ · ថ្ងៃសៅរ៍ ទី០២ ខែមករា ឆ្នាំ២០២៧</div>
+      <ol>
+        <li><time>3:00 pm</time><span class="t">ពិធីសែនក្រុងពាលី<span class="e">Offering to the guardian spirits of the land</span></span></li>
+        <li><time>4:00 pm</time><span class="t">ពិធីសូត្រមន្តចម្រើនព្រះបរិត្ត<span class="e">Monks chant the Paritta blessing</span></span></li>
+        <li><time>6:30 pm</time><span class="t">អញ្ជើញភ្ញៀវកិត្តិយសពិសាអាហារពេលល្ងាច<span class="e">Dinner for our honoured guests</span></span></li>
+      </ol>
+    </div>
+    <div class="day reveal">
+      <h3>Day 2 · Sunday, 3 January 2027</h3>
+      <div class="km">កម្មវិធីទី២ · ថ្ងៃអាទិត្យ ទី០៣ ខែមករា ឆ្នាំ២០២៧</div>
+      <ol>
+        <li><time>6:30 am</time><span class="t">ជួបជុំភ្ញៀវកិត្តិយសដើម្បីរៀបចំហែជំនូន<span class="e">Guests gather to prepare the dowry procession</span></span></li>
+        <li><time>7:00 am</time><span class="t">ពិធីហែជំនូនកំណត់ចូលរោងជ័យ<span class="e">Hae Chamnoun — the groom's procession enters the wedding hall</span></span></li>
+        <li><time>7:30 am</time><span class="t">ពិធីចៅមហានិយាយជើងការ សែនព្រេន រៀបរាប់ផ្លែឈើ និងពិសាភោជនាហារពេលព្រឹក<span class="e">The Maha opens the ceremony, presents the fruit trays and offerings to the ancestors; breakfast</span></span></li>
+        <li><time>8:00 am</time><span class="t">ពិធីបំពាក់ចិញ្ចៀន<span class="e">Exchange of rings</span></span></li>
+        <li><time>9:00 am</time><span class="t">ពិធីកាត់សក់បង្កក់សិរី កូនប្រុស-កូនស្រី<span class="e">Kat Sok — the symbolic hair-cutting for the bride and groom</span></span></li>
+        <li><time>11:00 am</time><span class="t">ពិធីសំពះផ្ទឹម ចងដៃ បង្វិលពពិល និងព្រះថោង នាងនាគ<span class="e">Sampeah Phtoem — the pairing ceremony: tying of the wrists, Bangvel Popil, and Preah Thong Neang Neak</span></span></li>
+        <li><time>12:00 pm</time><span class="t">អញ្ជើញភ្ញៀវកិត្តិយសពិសាអាហារថ្ងៃត្រង់ · បញ្ចប់កិច្ចអាពាហ៍ពិពាហ៍<span class="e">Lunch for our honoured guests — close of the wedding ceremony</span></span></li>
+        <li><time>4:00 pm</time><span class="t">អញ្ជើញភ្ញៀវកិត្តិយសពិសាភោជនាហារ<span class="e">Reception dinner</span></span></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
 <section class="block" id="details">
   <h2 class="reveal">The day</h2>
   <div class="cards">
@@ -156,6 +197,7 @@ footer .heart{color:var(--rose)}
     names: ["Samol", "Sy Ing"],                 // the two names as they should appear
     date: "2027-01-03T00:00:00+07:00",           // wedding day (Cambodia time)
     dateText: "Sunday, 3 January 2027",
+    daysText: "Saturday 2 – Sunday 3 January 2027",
     place: "",                                   // e.g. "Phnom Penh" (shown after the date when set)
     venue: "Venue to be announced.",
     dress: "To be announced.",
@@ -171,7 +213,7 @@ footer .heart{color:var(--rose)}
   $("n1").textContent = CONFIG.names[0]; $("n2").textContent = CONFIG.names[1];
   $("footNames").textContent = `${CONFIG.names[0]} & ${CONFIG.names[1]}`;
   document.title = `${CONFIG.names[0]} & ${CONFIG.names[1]} · 3 January 2027`;
-  $("whenText").textContent = CONFIG.dateText; $("detWhen").textContent = CONFIG.dateText + (CONFIG.place ? ` · ${CONFIG.place}` : "");
+  $("whenText").textContent = CONFIG.dateText; $("detWhen").textContent = (CONFIG.daysText || CONFIG.dateText) + (CONFIG.place ? ` · ${CONFIG.place}` : "") + " · see the programme above";
   if (CONFIG.place) $("whenPlace").textContent = ` · ${CONFIG.place}`;
   $("detWhere").textContent = CONFIG.venue; $("detDress").textContent = CONFIG.dress;
 
@@ -236,7 +278,7 @@ footer .heart{color:var(--rose)}
   // ---------- add to calendar (.ics) ----------
   $("ics").addEventListener("click", (e) => { e.preventDefault();
     const ics = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//samol.me//wedding//EN", "BEGIN:VEVENT", `UID:wedding-20270103@samol.me`, `DTSTAMP:${new Date().toISOString().replace(/[-:]/g, "").slice(0, 15)}Z`,
-      "DTSTART;VALUE=DATE:20270103", "DTEND;VALUE=DATE:20270104", `SUMMARY:Wedding of ${CONFIG.names[0]} & ${CONFIG.names[1]}`, `LOCATION:${CONFIG.place || ""}`, "URL:https://samol.me/wedding/", "END:VEVENT", "END:VCALENDAR"].join("\r\n");
+      "DTSTART;VALUE=DATE:20270102", "DTEND;VALUE=DATE:20270104", `SUMMARY:Wedding of ${CONFIG.names[0]} & ${CONFIG.names[1]}`, `LOCATION:${CONFIG.place || ""}`, "URL:https://samol.me/wedding/", "END:VEVENT", "END:VCALENDAR"].join("\r\n");
     const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([ics], { type: "text/calendar" })); a.download = "wedding-3-jan-2027.ics"; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 1000); });
 })();
 </script>
