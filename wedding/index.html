@@ -102,6 +102,12 @@ h2{font-family:"Great Vibes",cursive;font-weight:400;font-size:clamp(44px,6vw,72
 .card{padding:26px 24px;border-radius:18px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12)}
 .card h3{margin:0 0 8px;font-family:"Cormorant Garamond",serif;font-weight:500;font-size:24px;color:var(--gold)}
 .card p{margin:0;line-height:1.65;opacity:.9;font-size:15.5px}
+.where .qr{display:inline-block;margin-top:14px;padding:8px;background:#fff;border-radius:14px;box-shadow:0 12px 30px rgba(0,0,0,.35);transition:transform .3s}
+.where .qr:hover{transform:scale(1.03)}
+.where .qr img{display:block;width:132px;height:132px}
+.where .small{font-size:13px;opacity:.75;margin-top:12px}
+.where .btn{display:block;text-align:center;margin-top:14px}
+.where .small a{color:var(--gold)}
 .btn{display:inline-block;margin-top:14px;padding:11px 18px;border-radius:999px;border:1px solid rgba(255,255,255,.3);color:#fff;text-decoration:none;font-size:13.5px;letter-spacing:.06em;transition:background .3s,border-color .3s}
 .btn:hover{background:rgba(255,255,255,.12);border-color:var(--gold)}
 footer{position:relative;z-index:2;text-align:center;padding:40px 20px 60px;font-family:"Cormorant Garamond",serif;font-size:18px;opacity:.75}
@@ -182,7 +188,10 @@ footer .heart{color:var(--rose)}
   <h2 class="reveal">The day</h2>
   <div class="cards">
     <div class="card reveal"><h3>When</h3><p id="detWhen">Sunday, 3 January 2027</p><a class="btn" href="#" id="ics">Add to calendar</a></div>
-    <div class="card reveal"><h3>Where</h3><p id="detWhere">Venue to be announced.</p></div>
+    <div class="card reveal where"><h3>Where</h3><p id="detWhere">Venue to be announced.</p>
+      <a class="qr" id="mapLink" href="#" target="_blank" rel="noopener" aria-label="Open the venue in Google Maps"><img src="../assets/map-qr.svg" alt="QR code to the venue on Google Maps" width="132" height="132"></a>
+      <a class="btn" id="mapLink2" href="#" target="_blank" rel="noopener">Open in Google Maps</a>
+      <p class="small">On a computer? Scan the code with your phone camera.</p></div>
     <div class="card reveal"><h3>Dress code</h3><p id="detDress">To be announced.</p></div>
   </div>
 </section>
@@ -199,7 +208,8 @@ footer .heart{color:var(--rose)}
     dateText: "Sunday, 3 January 2027",
     daysText: "Saturday 2 – Sunday 3 January 2027",
     place: "",                                   // e.g. "Phnom Penh" (shown after the date when set)
-    venue: "Venue to be announced.",
+    venue: "Prek Chrov, Roka Korng 2",
+    map: "https://maps.app.goo.gl/FjZz7G5bWVqtrBjw7",   // Google Maps link (also encoded in assets/map-qr.svg)
     dress: "To be announced.",
     photos: ["wedding-01.jpg", "wedding-02.jpg", "wedding-03.jpg", "wedding-04.jpg", "wedding-05.jpg", "wedding-07.jpg", "wedding-10.jpg", "wedding-11.jpg", "wedding-12.jpg", "wedding-08.jpg", "wedding-13.jpg", "wedding-09.jpg"],  // gallery, files in /assets/photos/
     hero: ["wedding-01.jpg", "wedding-02.jpg", "wedding-03.jpg", "wedding-11.jpg", "wedding-04.jpg", "wedding-05.jpg", "wedding-07.jpg", "wedding-08.jpg"],  // slideshow order
@@ -215,7 +225,7 @@ footer .heart{color:var(--rose)}
   document.title = `${CONFIG.names[0]} & ${CONFIG.names[1]} · 3 January 2027`;
   $("whenText").textContent = CONFIG.dateText; $("detWhen").textContent = (CONFIG.daysText || CONFIG.dateText) + (CONFIG.place ? ` · ${CONFIG.place}` : "") + " · see the programme above";
   if (CONFIG.place) $("whenPlace").textContent = ` · ${CONFIG.place}`;
-  $("detWhere").textContent = CONFIG.venue; $("detDress").textContent = CONFIG.dress;
+  $("detWhere").textContent = CONFIG.venue; $("detDress").textContent = CONFIG.dress; $("mapLink").href = CONFIG.map; $("mapLink2").href = CONFIG.map;
 
   // ---------- slideshow with crossfade + Ken Burns ----------
   const slidesEl = $("slides"), kb = ["kb-a", "kb-b", "kb-c"];
@@ -278,7 +288,7 @@ footer .heart{color:var(--rose)}
   // ---------- add to calendar (.ics) ----------
   $("ics").addEventListener("click", (e) => { e.preventDefault();
     const ics = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//samol.me//wedding//EN", "BEGIN:VEVENT", `UID:wedding-20270103@samol.me`, `DTSTAMP:${new Date().toISOString().replace(/[-:]/g, "").slice(0, 15)}Z`,
-      "DTSTART;VALUE=DATE:20270102", "DTEND;VALUE=DATE:20270104", `SUMMARY:Wedding of ${CONFIG.names[0]} & ${CONFIG.names[1]}`, `LOCATION:${CONFIG.place || ""}`, "URL:https://samol.me/wedding/", "END:VEVENT", "END:VCALENDAR"].join("\r\n");
+      "DTSTART;VALUE=DATE:20270102", "DTEND;VALUE=DATE:20270104", `SUMMARY:Wedding of ${CONFIG.names[0]} & ${CONFIG.names[1]}`, `LOCATION:${CONFIG.place || CONFIG.map || ""}`, "URL:https://samol.me/wedding/", "END:VEVENT", "END:VCALENDAR"].join("\r\n");
     const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([ics], { type: "text/calendar" })); a.download = "wedding-3-jan-2027.ics"; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 1000); });
 })();
 </script>
