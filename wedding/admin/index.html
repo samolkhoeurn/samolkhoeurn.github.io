@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guest list · Samol & Sy Ing</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23120a10'/%3E%3Ctext x='32' y='43' font-family='Georgia,serif' font-size='30' text-anchor='middle' fill='%23e8c27a'%3E%E2%99%A5%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Kantumruy+Pro:wght@400;500;600&family=Cormorant+Garamond:wght@500;600&display=swap">
+<link rel="stylesheet" href="../../assets/site.css">
+<style>
+:root{--bg:#120a10;--panel:rgba(255,255,255,.06);--line:rgba(255,255,255,.12);--ink:#fbf6f2;--muted:#b9a9b2;--gold:#e8c27a;--rose:#f1a7c1;--ok:#86efac;--bad:#fca5a5}
+body{background:var(--bg);color:var(--ink);font-family:"Inter","Kantumruy Pro",sans-serif;line-height:1.5}
+.wrap{max-width:1100px;margin:0 auto;padding:96px 20px 60px}
+h1{font-family:"Cormorant Garamond",serif;font-weight:600;font-size:38px;margin:0 0 4px}
+.sub{color:var(--muted);margin-bottom:26px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:20px 22px;margin-bottom:18px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+input,textarea{padding:11px 13px;border-radius:12px;border:1px solid var(--line);background:rgba(0,0,0,.25);color:#fff;font:inherit;font-size:15px}
+input{min-width:220px;flex:1}
+button,.btn{padding:11px 16px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.07);color:#fff;font:inherit;font-size:14px;cursor:pointer;text-decoration:none}
+button:hover{background:rgba(255,255,255,.14)}
+button.primary{background:var(--gold);color:#2a1a0b;border-color:transparent;font-weight:600}
+button.danger{border-color:rgba(252,165,165,.5);color:var(--bad)}
+button.sm{padding:7px 11px;font-size:13px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.stat{padding:16px;border-radius:14px;background:rgba(255,255,255,.05);border:1px solid var(--line)}
+.stat b{display:block;font-family:"Cormorant Garamond",serif;font-size:36px;line-height:1;color:var(--gold);font-variant-numeric:lining-nums}
+.stat span{font-size:12.5px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+table{width:100%;border-collapse:collapse;font-size:14.5px}
+th,td{text-align:left;padding:10px 8px;border-top:1px solid var(--line);vertical-align:top}
+th{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border-top:0}
+td .nm{font-family:"Kantumruy Pro",sans-serif;font-weight:600;font-size:15.5px}
+td .code{font-family:ui-monospace,monospace;font-size:12px;color:var(--muted)}
+.st{display:inline-block;padding:3px 10px;border-radius:999px;font-size:12.5px;font-weight:600}
+.st.yes{background:rgba(134,239,172,.15);color:var(--ok)} .st.no{background:rgba(252,165,165,.15);color:var(--bad)} .st.none{background:rgba(255,255,255,.08);color:var(--muted)}
+.names{font-family:"Kantumruy Pro",sans-serif;color:var(--muted);font-size:13.5px}
+.msg{min-height:20px;font-size:14px;color:var(--muted);margin-top:8px}
+.msg.ok{color:var(--ok)} .msg.bad{color:var(--bad)}
+#login{max-width:420px;margin:60px auto}
+select{padding:11px 13px;border-radius:12px;border:1px solid var(--line);background:rgba(0,0,0,.25);color:#fff;font:inherit;font-size:14px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.chip{padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--muted);font-size:13px;cursor:pointer}
+.chip.on{background:rgba(232,194,122,.15);border-color:rgba(232,194,122,.5);color:var(--gold)}
+tr.editing td{background:rgba(232,194,122,.06)}
+td.row{flex-wrap:nowrap;white-space:nowrap;display:flex}
+td.row .btn,td.row button{white-space:nowrap}
+.edit-form{display:grid;grid-template-columns:1fr 90px 130px;gap:8px;margin-bottom:8px}
+.edit-form input,.edit-form select{min-width:0;width:100%}
+.edit-form .note{grid-column:1/-1}
+.side{font-size:12px;color:var(--muted)} .side b{color:var(--rose);font-weight:600}
+.note-txt{font-size:12.5px;color:var(--muted);font-family:"Kantumruy Pro",sans-serif}
+@media (max-width:700px){th:nth-child(4),td:nth-child(4){display:none}.edit-form{grid-template-columns:1fr 80px}}
+</style>
+</head>
+<body>
+<nav class="sitenav" aria-label="Site"><a href="/home/">Home</a><a href="/wedding/" aria-current="page">Wedding</a><a href="/quiz/">Quiz</a><a href="/career/">Career</a></nav>
+<main class="wrap">
+  <h1>Guest list</h1>
+  <div class="sub">Invitations, personal links and replies · Samol &amp; Sy Ing · 2–3 January 2027</div>
+
+  <div class="card" id="login">
+    <div class="row" style="flex-direction:column;align-items:stretch">
+      <input id="email" type="email" placeholder="Admin e-mail" autocomplete="username">
+      <input id="pw" type="password" placeholder="Password" autocomplete="current-password">
+      <button class="primary" id="loginBtn">Sign in</button>
+      <div class="msg" id="loginMsg"></div>
+    </div>
+  </div>
+
+  <div id="app" hidden>
+    <div class="card"><div class="stats" id="stats"></div></div>
+    <div class="card">
+      <div class="row">
+        <input id="newName" placeholder="Guest or family name, as it should appear on the invitation (Khmer or English)">
+        <input id="newSize" type="number" min="1" max="20" value="2" style="min-width:90px;max-width:110px;flex:0" title="Expected number of people">
+        <select id="newSide" title="Whose guest"><option value="groom">Groom's side</option><option value="bride">Bride's side</option><option value="both">Both</option></select>
+        <input id="newNote" placeholder="Private note (phone, Telegram, relation…)" style="flex:1;min-width:180px">
+        <button class="primary" id="addBtn">Add guest</button>
+        <button id="csvBtn">Download CSV</button>
+        <button id="outBtn">Sign out</button>
+      </div>
+      <div class="msg" id="msg"></div>
+      <div class="row" style="margin-top:6px"><input id="search" placeholder="Search by name or note…" style="max-width:360px">
+        <div class="chips" id="chips" style="margin-top:0"><button class="chip on" data-f="all">All</button><button class="chip" data-f="yes">Joining</button><button class="chip" data-f="no">Declined</button><button class="chip" data-f="none">No reply</button><button class="chip" data-f="groom">Groom's side</button><button class="chip" data-f="bride">Bride's side</button></div></div>
+    </div>
+    <div class="card" style="overflow:auto">
+      <table>
+        <thead><tr><th>Guest</th><th>Reply</th><th>People</th><th>Who</th><th>Invitation</th><th>Edit</th></tr></thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
+  </div>
+</main>
+
+<script type="module">
+import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+import { getFirestore, doc, setDoc, updateDoc, deleteDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+import { firebaseConfig, ADMIN_EMAIL } from "/quiz/firebase-config.js";
+
+const $ = (id) => document.getElementById(id), esc = (t) => String(t ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const app = getApps().length ? getApps()[0] : initializeApp(firebaseConfig), auth = getAuth(app), db = getFirestore(app);
+const SITE = location.origin + "/wedding/";
+let guests = {}, rsvps = {};
+
+$("loginBtn").addEventListener("click", async () => { $("loginMsg").textContent = ""; try { await signInWithEmailAndPassword(auth, $("email").value.trim(), $("pw").value); } catch (e) { $("loginMsg").textContent = "Sign-in failed: " + (e.code || e); $("loginMsg").className = "msg bad"; } });
+$("pw").addEventListener("keydown", (e) => { if (e.key === "Enter") $("loginBtn").click(); });
+$("outBtn").addEventListener("click", () => signOut(auth));
+onAuthStateChanged(auth, async (u) => {
+  const ok = u && (u.email || "").toLowerCase() === String(ADMIN_EMAIL).toLowerCase();
+  $("login").hidden = !!ok; $("app").hidden = !ok;
+  if (u && !ok) { $("loginMsg").textContent = "This account is not the admin."; $("loginMsg").className = "msg bad"; }
+  if (ok) load();
+});
+
+async function load() {
+  try {
+    guests = Object.fromEntries((await getDocs(collection(db, "guests"))).docs.map((d) => [d.id, d.data()]));
+    rsvps = Object.fromEntries((await getDocs(collection(db, "rsvps"))).docs.map((d) => [d.id, d.data()]));
+  } catch (e) { $("msg").textContent = "Could not read the database: " + (e.code || e) + " — check that firestore.rules includes the guests/rsvps section."; $("msg").className = "msg bad"; return; }
+  render();
+}
+let filter = "all", search = "", editing = null;
+const SIDE = { groom: "Groom's side", bride: "Bride's side", both: "Both" };
+function render() {
+  const all = Object.keys(guests).sort((a, b) => (guests[b].createdAt || 0) - (guests[a].createdAt || 0));
+  const yes = all.filter((c) => rsvps[c]?.attending === true), no = all.filter((c) => rsvps[c]?.attending === false), none = all.filter((c) => !rsvps[c]);
+  const people = yes.reduce((s, c) => s + (rsvps[c].count || 0), 0), expected = all.reduce((s, c) => s + (Number(guests[c].size) || 0), 0);
+  $("stats").innerHTML = [["Invited", all.length], ["Expected people", expected], ["Confirmed", yes.length], ["People coming", people], ["Declined", no.length], ["No reply yet", none.length]].map(([k, v]) => `<div class="stat"><b>${v}</b><span>${k}</span></div>`).join("");
+  const q = search.trim().toLowerCase();
+  const ids = all.filter((c) => { const g = guests[c], r = rsvps[c];
+    if (filter === "yes" && r?.attending !== true) return false; if (filter === "no" && r?.attending !== false) return false; if (filter === "none" && r) return false;
+    if ((filter === "groom" || filter === "bride") && (g.side || "groom") !== filter && g.side !== "both") return false;
+    return !q || (g.name + " " + (g.note || "")).toLowerCase().includes(q); });
+  $("rows").innerHTML = ids.map((c) => { const g = guests[c], r = rsvps[c];
+    if (editing === c) return `<tr data-c="${c}" class="editing"><td colspan="6">
+      <div class="edit-form"><input id="eName" value="${esc(g.name)}" placeholder="Name on the invitation"><input id="eSize" type="number" min="1" max="20" value="${g.size || 1}" title="Expected people">
+        <select id="eSide">${Object.entries(SIDE).map(([k, v]) => `<option value="${k}" ${(g.side || "groom") === k ? "selected" : ""}>${v}</option>`).join("")}</select>
+        <input id="eNote" class="note" value="${esc(g.note || "")}" placeholder="Private note (phone, Telegram, relation…)"></div>
+      <div class="row"><button class="sm primary" data-act="save">Save</button><button class="sm" data-act="cancel">Cancel</button>
+        <span style="flex:1"></span><span class="side">Reply on their behalf:</span>
+        <button class="sm" data-act="markyes">Mark joining (${g.size || 1})</button><button class="sm" data-act="markno">Mark declined</button><button class="sm" data-act="clear">Clear reply</button></div></td></tr>`;
+    const st = !r ? '<span class="st none">no reply</span>' : r.attending ? '<span class="st yes">joining</span>' : '<span class="st no">declined</span>';
+    return `<tr data-c="${c}"><td><div class="nm">${esc(g.name)}</div><div class="code">${c} · expected ${g.size || 1} · <span class="side"><b>${SIDE[g.side] || SIDE.groom}</b></span></div>${g.note ? `<div class="note-txt">${esc(g.note)}</div>` : ""}</td><td>${st}</td><td>${r?.attending ? r.count : ""}</td><td class="names">${esc(r?.names || "")}</td>
+      <td class="row"><button class="sm" data-act="link">Copy link</button><button class="sm" data-act="text">Copy message</button><a class="btn sm" href="${SITE}?i=${c}" target="_blank" rel="noopener">Open</a></td>
+      <td class="row"><button class="sm" data-act="edit">Edit</button><button class="sm danger" data-act="del">Remove</button></td></tr>`; }).join("")
+    || `<tr><td colspan="6" class="names">${all.length ? "No guests match this filter." : "No guests yet — add the first one above."}</td></tr>`;
+}
+$("search").addEventListener("input", (e) => { search = e.target.value; render(); });
+$("chips").addEventListener("click", (e) => { const b = e.target.closest(".chip"); if (!b) return; filter = b.dataset.f; document.querySelectorAll(".chip").forEach((x) => x.classList.toggle("on", x === b)); render(); });
+const flash = (t, ok = true) => { $("msg").textContent = t; $("msg").className = "msg " + (ok ? "ok" : "bad"); setTimeout(() => { if ($("msg").textContent === t) $("msg").textContent = ""; }, 4000); };
+const newCode = () => { const a = "abcdefghjkmnpqrstuvwxyz23456789"; let s = ""; for (let i = 0; i < 6; i++) s += a[Math.floor(Math.random() * a.length)]; return guests[s] ? newCode() : s; };
+$("addBtn").addEventListener("click", async () => {
+  const name = $("newName").value.trim(), size = Math.max(1, Math.min(20, Number($("newSize").value) || 1)), side = $("newSide").value, note = $("newNote").value.trim(); if (!name) return $("newName").focus();
+  const code = newCode(), g = { name, size, side, note, createdAt: Date.now() };
+  try { await setDoc(doc(db, "guests", code), g); guests[code] = g; $("newName").value = ""; $("newNote").value = ""; render(); flash(`Added ${name} — link copied: ${SITE}?i=${code}`); copy(`${SITE}?i=${code}`); }
+  catch (e) { flash("Could not add: " + (e.code || e), false); }
+});
+$("newName").addEventListener("keydown", (e) => { if (e.key === "Enter") $("addBtn").click(); });
+$("rows").addEventListener("click", async (e) => {
+  const b = e.target.closest("button[data-act]"); if (!b) return; const c = b.closest("tr").dataset.c, g = guests[c], link = `${SITE}?i=${c}`;
+  if (b.dataset.act === "link") { copy(link); flash("Link copied for " + g.name); }
+  if (b.dataset.act === "text") { copy(`${g.name} ជាទីគោរព,\nយើងខ្ញុំ សាម៉ុល និង ស៊ីអ៊ីង មានកិត្តិយសសូមគោរពអញ្ជើញ ចូលរួមក្នុងពិធីសិរីមង្គលអាពាហ៍ពិពាហ៍របស់យើងខ្ញុំ នៅថ្ងៃទី០២–០៣ ខែមករា ឆ្នាំ២០២៧ នៅភូមិព្រែកជ្រៅ រកាកោង២។\nសូមមើលសំបុត្រអញ្ជើញ និងបញ្ជាក់ការចូលរួមតាមតំណនេះ៖\n${link}\n\nDear ${g.name}, Samol & Sy Ing warmly invite you to our wedding on 2–3 January 2027. Please see the invitation and let us know if you can join: ${link}`); flash("Invitation message copied for " + g.name); }
+  if (b.dataset.act === "edit") { editing = c; render(); $("eName").focus(); return; }
+  if (b.dataset.act === "cancel") { editing = null; render(); return; }
+  if (b.dataset.act === "save") { const upd = { name: $("eName").value.trim() || g.name, size: Math.max(1, Math.min(20, Number($("eSize").value) || 1)), side: $("eSide").value, note: $("eNote").value.trim() };
+    try { await updateDoc(doc(db, "guests", c), upd); Object.assign(guests[c], upd); editing = null; render(); flash("Saved " + upd.name); } catch (err) { flash("Could not save: " + (err.code || err), false); } return; }
+  if (b.dataset.act === "markyes" || b.dataset.act === "markno") { const r = { attending: b.dataset.act === "markyes", count: b.dataset.act === "markyes" ? (Number(g.size) || 1) : 0, names: "", updatedAt: Date.now() };
+    try { await setDoc(doc(db, "rsvps", c), r); rsvps[c] = r; editing = null; render(); flash(`${g.name}: ${r.attending ? "marked as joining" : "marked as declined"}`); } catch (err) { flash("Could not save: " + (err.code || err), false); } return; }
+  if (b.dataset.act === "clear") { try { await deleteDoc(doc(db, "rsvps", c)); delete rsvps[c]; editing = null; render(); flash("Reply cleared for " + g.name); } catch (err) { flash("Could not clear: " + (err.code || err), false); } return; }
+  if (b.dataset.act === "del") { if (!confirm(`Remove ${g.name} and their reply?`)) return; try { await deleteDoc(doc(db, "rsvps", c)); await deleteDoc(doc(db, "guests", c)); delete guests[c]; delete rsvps[c]; render(); flash("Removed " + g.name); } catch (err) { flash("Could not remove: " + (err.code || err), false); } }
+});
+$("csvBtn").addEventListener("click", () => {
+  const q = (v) => `"${String(v ?? "").replace(/"/g, '""')}"`;
+  const lines = [["Guest", "Side", "Expected", "Note", "Reply", "People", "Who", "Replied at", "Link"].join(",")];
+  for (const c of Object.keys(guests)) { const g = guests[c], r = rsvps[c]; lines.push([q(g.name), SIDE[g.side] || SIDE.groom, g.size || "", q(g.note || ""), r ? (r.attending ? "joining" : "declined") : "no reply", r?.attending ? r.count : "", q(r?.names || ""), r?.updatedAt ? new Date(r.updatedAt).toISOString().slice(0, 16).replace("T", " ") : "", `${SITE}?i=${c}`].join(",")); }
+  const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob(["﻿" + lines.join("\r\n")], { type: "text/csv;charset=utf-8" })); a.download = "wedding-guests.csv"; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+});
+function copy(t) { navigator.clipboard?.writeText(t).catch(() => {}); }
+</script>
+</body>
+</html>
