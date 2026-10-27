@@ -100,7 +100,8 @@ body{background:#0b0f17;color:var(--ink);overflow:hidden}
     $("date").textContent = now.toLocaleDateString("en-AU", { weekday: "long", day: "numeric", month: "long" });
     $("dateKm").textContent = `ថ្ងៃ${KM_DAYS[now.getDay()]} ${km(now.getDate())} ${KM_MONTHS[now.getMonth()]}`;
     const wedding = new Date("2027-01-03T00:00:00+07:00"), days = Math.ceil((wedding - now) / 864e5);
-    $("tileDays").textContent = days > 1 ? `${days} days to 3 January 2027` : days === 1 ? "Tomorrow!" : days === 0 ? "Today is the day" : "Just married";
+    const since = Math.floor((now - new Date("2027-01-04T00:00:00+07:00")) / 864e5);
+    $("tileDays").textContent = days > 1 ? `${days} days to 3 January 2027` : days === 1 ? "Tomorrow!" : days === 0 ? "Today is the day" : since < 7 ? "Just married ♥" : `Married for ${since} days ♥`;
   }
   tick(); setInterval(tick, 1000);
 
