@@ -411,7 +411,7 @@ footer .heart{color:var(--rose)}
   let guest = null;
   try { const snap = await fs.getDoc(gRef); if (snap.exists()) guest = snap.data(); } catch {}
   if (!guest) { $("guestName").textContent = "—"; $("rsvp").innerHTML = '<p class="err">រកមិនឃើញសំបុត្រអញ្ជើញនេះទេ · This invitation link is not valid.</p>'; return; }
-  $("guestName").textContent = guest.name; $("heroInvite").hidden = false;
+  $("guestName").textContent = guest.name; const hl = $("heroInvite"); hl.hidden = false; hl.href = `?i=${code}#invite`; hl.addEventListener("click", (e) => { e.preventDefault(); sec.scrollIntoView({ behavior: "smooth", block: "start" }); });
   document.title = `ការអញ្ជើញ · ${guest.name} · Samol & Sy Ing`;
   const sel = (yes) => { state.attending = yes; $("rYes").classList.toggle("on", yes === true); $("rNo").classList.toggle("on", yes === false); $("rDetail").classList.toggle("on", yes === true); $("rSend").hidden = false; $("rThanks").classList.remove("on"); };
   const state = { attending: null, count: Math.max(1, Number(guest.size) || 1), names: "" };

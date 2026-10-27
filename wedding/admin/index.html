@@ -99,7 +99,8 @@ td.row .btn,td.row button{white-space:nowrap}
 import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
 import { getFirestore, doc, setDoc, updateDoc, deleteDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
-import { firebaseConfig, ADMIN_EMAIL } from "/quiz/firebase-config.js";
+import * as CFG from "/quiz/firebase-config.js";
+const firebaseConfig = CFG.firebaseConfig, ADMIN_EMAILS = (CFG.ADMIN_EMAILS || [CFG.ADMIN_EMAIL]).map((e) => String(e).toLowerCase());
 
 const $ = (id) => document.getElementById(id), esc = (t) => String(t ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 const app = getApps().length ? getApps()[0] : initializeApp(firebaseConfig), auth = getAuth(app), db = getFirestore(app);
@@ -110,7 +111,7 @@ $("loginBtn").addEventListener("click", async () => { $("loginMsg").textContent 
 $("pw").addEventListener("keydown", (e) => { if (e.key === "Enter") $("loginBtn").click(); });
 $("outBtn").addEventListener("click", () => signOut(auth));
 onAuthStateChanged(auth, async (u) => {
-  const ok = u && (u.email || "").toLowerCase() === String(ADMIN_EMAIL).toLowerCase();
+  const ok = u && ADMIN_EMAILS.includes((u.email || "").toLowerCase());
   $("login").hidden = !!ok; $("app").hidden = !ok;
   if (u && !ok) { $("loginMsg").textContent = "This account is not the admin."; $("loginMsg").className = "msg bad"; }
   if (ok) load();
