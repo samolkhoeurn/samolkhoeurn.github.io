@@ -58,7 +58,7 @@ td.row .btn,td.row button{white-space:nowrap}
 <nav class="sitenav" aria-label="Site"><a href="/home/">Home</a><a href="/wedding/" aria-current="page">Wedding</a></nav>
 <main class="wrap">
   <h1>Guest list</h1>
-  <div class="sub">Invitations, personal links and replies · Samol &amp; Sy Ing · 2–3 January 2027</div>
+  <div class="sub">Invitations and personal links · Samol &amp; Sy Ing · 2–3 January 2027</div>
 
   <div class="card" id="login">
     <div class="row" style="flex-direction:column;align-items:stretch">
@@ -84,11 +84,11 @@ td.row .btn,td.row button{white-space:nowrap}
       </div>
       <div class="msg" id="msg"></div>
       <div class="row" style="margin-top:6px"><input id="search" placeholder="Search by name or note…" style="max-width:360px">
-        <div class="chips" id="chips" style="margin-top:0"><button class="chip on" data-f="all">All</button><button class="chip" data-f="yes">Joining</button><button class="chip" data-f="no">Declined</button><button class="chip" data-f="none">No reply</button><button class="chip" data-f="groom">Groom's side</button><button class="chip" data-f="bride">Bride's side</button></div></div>
+        <div class="chips" id="chips" style="margin-top:0"><button class="chip on" data-f="all">All</button><button class="chip" data-f="groom">Groom's side</button><button class="chip" data-f="bride">Bride's side</button><button class="chip" data-f="both">Both</button></div></div>
     </div>
     <div class="card" style="overflow:auto">
       <table>
-        <thead><tr><th>Guest</th><th>Reply</th><th>People</th><th>Who</th><th>Invitation</th><th>Edit</th></tr></thead>
+        <thead><tr><th>Guest</th><th>Invitation</th><th>Edit</th></tr></thead>
         <tbody id="rows"></tbody>
       </table>
     </div>
@@ -120,7 +120,6 @@ onAuthStateChanged(auth, async (u) => {
 async function load() {
   try {
     guests = Object.fromEntries((await getDocs(collection(db, "guests"))).docs.map((d) => [d.id, d.data()]));
-    rsvps = Object.fromEntries((await getDocs(collection(db, "rsvps"))).docs.map((d) => [d.id, d.data()]));
   } catch (e) { $("msg").textContent = "Could not read the database: " + (e.code || e) + " — check that firestore.rules includes the guests/rsvps section."; $("msg").className = "msg bad"; return; }
   render();
 }
@@ -128,27 +127,23 @@ let filter = "all", search = "", editing = null;
 const SIDE = { groom: "Groom's side", bride: "Bride's side", both: "Both" };
 function render() {
   const all = Object.keys(guests).sort((a, b) => (guests[b].createdAt || 0) - (guests[a].createdAt || 0));
-  const yes = all.filter((c) => rsvps[c]?.attending === true), no = all.filter((c) => rsvps[c]?.attending === false), none = all.filter((c) => !rsvps[c]);
-  const people = yes.reduce((s, c) => s + (rsvps[c].count || 0), 0), expected = all.reduce((s, c) => s + (Number(guests[c].size) || 0), 0);
-  $("stats").innerHTML = [["Invited", all.length], ["Expected people", expected], ["Confirmed", yes.length], ["People coming", people], ["Declined", no.length], ["No reply yet", none.length]].map(([k, v]) => `<div class="stat"><b>${v}</b><span>${k}</span></div>`).join("");
+  const expected = all.reduce((s, c) => s + (Number(guests[c].size) || 0), 0);
+  const bySide = (k) => all.filter((c) => (guests[c].side || "groom") === k).length;
+  $("stats").innerHTML = [["Invited", all.length], ["Expected people", expected], ["Groom's side", bySide("groom")], ["Bride's side", bySide("bride")], ["Both", bySide("both")]].map(([k, v]) => `<div class="stat"><b>${v}</b><span>${k}</span></div>`).join("");
   const q = search.trim().toLowerCase();
-  const ids = all.filter((c) => { const g = guests[c], r = rsvps[c];
-    if (filter === "yes" && r?.attending !== true) return false; if (filter === "no" && r?.attending !== false) return false; if (filter === "none" && r) return false;
-    if ((filter === "groom" || filter === "bride") && (g.side || "groom") !== filter && g.side !== "both") return false;
+  const ids = all.filter((c) => { const g = guests[c];
+    if (filter !== "all" && (g.side || "groom") !== filter) return false;
     return !q || (g.name + " " + (g.note || "")).toLowerCase().includes(q); });
-  $("rows").innerHTML = ids.map((c) => { const g = guests[c], r = rsvps[c];
-    if (editing === c) return `<tr data-c="${c}" class="editing"><td colspan="6">
+  $("rows").innerHTML = ids.map((c) => { const g = guests[c];
+    if (editing === c) return `<tr data-c="${c}" class="editing"><td colspan="3">
       <div class="edit-form"><input id="eName" value="${esc(g.name)}" placeholder="Name on the invitation"><input id="eSize" type="number" min="1" max="20" value="${g.size || 1}" title="Expected people">
         <select id="eSide">${Object.entries(SIDE).map(([k, v]) => `<option value="${k}" ${(g.side || "groom") === k ? "selected" : ""}>${v}</option>`).join("")}</select>
         <input id="eNote" class="note" value="${esc(g.note || "")}" placeholder="Private note (phone, Telegram, relation…)"></div>
-      <div class="row"><button class="sm primary" data-act="save">Save</button><button class="sm" data-act="cancel">Cancel</button>
-        <span style="flex:1"></span><span class="side">Reply on their behalf:</span>
-        <button class="sm" data-act="markyes">Mark joining (${g.size || 1})</button><button class="sm" data-act="markno">Mark declined</button><button class="sm" data-act="clear">Clear reply</button></div></td></tr>`;
-    const st = !r ? '<span class="st none">no reply</span>' : r.attending ? '<span class="st yes">joining</span>' : '<span class="st no">declined</span>';
-    return `<tr data-c="${c}"><td><div class="nm">${esc(g.name)}</div><div class="code">${c} · expected ${g.size || 1} · <span class="side"><b>${SIDE[g.side] || SIDE.groom}</b></span></div>${g.note ? `<div class="note-txt">${esc(g.note)}</div>` : ""}</td><td>${st}</td><td>${r?.attending ? r.count : ""}</td><td class="names">${esc(r?.names || "")}</td>
+      <div class="row"><button class="sm primary" data-act="save">Save</button><button class="sm" data-act="cancel">Cancel</button></div></td></tr>`;
+    return `<tr data-c="${c}"><td><div class="nm">${esc(g.name)}</div><div class="code">${c} · expected ${g.size || 1} · <span class="side"><b>${SIDE[g.side] || SIDE.groom}</b></span></div>${g.note ? `<div class="note-txt">${esc(g.note)}</div>` : ""}</td>
       <td class="row"><button class="sm" data-act="link">Copy link</button><button class="sm" data-act="text">Copy message</button><a class="btn sm" href="${SITE}?i=${c}" target="_blank" rel="noopener">Open</a></td>
       <td class="row"><button class="sm" data-act="edit">Edit</button><button class="sm danger" data-act="del">Remove</button></td></tr>`; }).join("")
-    || `<tr><td colspan="6" class="names">${all.length ? "No guests match this filter." : "No guests yet — add the first one above."}</td></tr>`;
+    || `<tr><td colspan="3" class="names">${all.length ? "No guests match this filter." : "No guests yet — add the first one above."}</td></tr>`;
 }
 $("search").addEventListener("input", (e) => { search = e.target.value; render(); });
 $("chips").addEventListener("click", (e) => { const b = e.target.closest(".chip"); if (!b) return; filter = b.dataset.f; document.querySelectorAll(".chip").forEach((x) => x.classList.toggle("on", x === b)); render(); });
@@ -164,20 +159,17 @@ $("newName").addEventListener("keydown", (e) => { if (e.key === "Enter") $("addB
 $("rows").addEventListener("click", async (e) => {
   const b = e.target.closest("button[data-act]"); if (!b) return; const c = b.closest("tr").dataset.c, g = guests[c], link = `${SITE}?i=${c}`;
   if (b.dataset.act === "link") { copy(link); flash("Link copied for " + g.name); }
-  if (b.dataset.act === "text") { copy(`${g.name} ជាទីគោរព,\nយើងខ្ញុំ សាម៉ុល និង ស៊ីអ៊ីង មានកិត្តិយសសូមគោរពអញ្ជើញ ចូលរួមក្នុងពិធីសិរីមង្គលអាពាហ៍ពិពាហ៍របស់យើងខ្ញុំ នៅថ្ងៃទី០២–០៣ ខែមករា ឆ្នាំ២០២៧ នៅភូមិព្រែកជ្រៅ រកាកោង២។\nសូមមើលសំបុត្រអញ្ជើញ និងបញ្ជាក់ការចូលរួមតាមតំណនេះ៖\n${link}\n\nDear ${g.name}, Samol & Sy Ing warmly invite you to our wedding on 2–3 January 2027. Please see the invitation and let us know if you can join: ${link}`); flash("Invitation message copied for " + g.name); }
+  if (b.dataset.act === "text") { copy(`${g.name} ជាទីគោរព,\nយើងខ្ញុំ សាម៉ុល និង ស៊ីអ៊ីង មានកិត្តិយសសូមគោរពអញ្ជើញ ចូលរួមក្នុងពិធីសិរីមង្គលអាពាហ៍ពិពាហ៍របស់យើងខ្ញុំ នៅថ្ងៃទី០២–០៣ ខែមករា ឆ្នាំ២០២៧ នៅភូមិព្រែកជ្រៅ រកាកោង២។\nសូមមើលសំបុត្រអញ្ជើញតាមតំណនេះ៖\n${link}\n\nDear ${g.name}, Samol & Sy Ing warmly invite you to our wedding on 2–3 January 2027 at Prek Chrov, Roka Korng 2. Our invitation: ${link}`); flash("Invitation message copied for " + g.name); }
   if (b.dataset.act === "edit") { editing = c; render(); $("eName").focus(); return; }
   if (b.dataset.act === "cancel") { editing = null; render(); return; }
   if (b.dataset.act === "save") { const upd = { name: $("eName").value.trim() || g.name, size: Math.max(1, Math.min(20, Number($("eSize").value) || 1)), side: $("eSide").value, note: $("eNote").value.trim() };
     try { await updateDoc(doc(db, "guests", c), upd); Object.assign(guests[c], upd); editing = null; render(); flash("Saved " + upd.name); } catch (err) { flash("Could not save: " + (err.code || err), false); } return; }
-  if (b.dataset.act === "markyes" || b.dataset.act === "markno") { const r = { attending: b.dataset.act === "markyes", count: b.dataset.act === "markyes" ? (Number(g.size) || 1) : 0, names: "", updatedAt: Date.now() };
-    try { await setDoc(doc(db, "rsvps", c), r); rsvps[c] = r; editing = null; render(); flash(`${g.name}: ${r.attending ? "marked as joining" : "marked as declined"}`); } catch (err) { flash("Could not save: " + (err.code || err), false); } return; }
-  if (b.dataset.act === "clear") { try { await deleteDoc(doc(db, "rsvps", c)); delete rsvps[c]; editing = null; render(); flash("Reply cleared for " + g.name); } catch (err) { flash("Could not clear: " + (err.code || err), false); } return; }
-  if (b.dataset.act === "del") { if (!confirm(`Remove ${g.name} and their reply?`)) return; try { await deleteDoc(doc(db, "rsvps", c)); await deleteDoc(doc(db, "guests", c)); delete guests[c]; delete rsvps[c]; render(); flash("Removed " + g.name); } catch (err) { flash("Could not remove: " + (err.code || err), false); } }
+  if (b.dataset.act === "del") { if (!confirm(`Remove ${g.name} and their reply?`)) return; try { await deleteDoc(doc(db, "guests", c)); delete guests[c]; render(); flash("Removed " + g.name); } catch (err) { flash("Could not remove: " + (err.code || err), false); } }
 });
 $("csvBtn").addEventListener("click", () => {
   const q = (v) => `"${String(v ?? "").replace(/"/g, '""')}"`;
-  const lines = [["Guest", "Side", "Expected", "Note", "Reply", "People", "Who", "Replied at", "Link"].join(",")];
-  for (const c of Object.keys(guests)) { const g = guests[c], r = rsvps[c]; lines.push([q(g.name), SIDE[g.side] || SIDE.groom, g.size || "", q(g.note || ""), r ? (r.attending ? "joining" : "declined") : "no reply", r?.attending ? r.count : "", q(r?.names || ""), r?.updatedAt ? new Date(r.updatedAt).toISOString().slice(0, 16).replace("T", " ") : "", `${SITE}?i=${c}`].join(",")); }
+  const lines = [["Guest", "Side", "Expected", "Note", "Link"].join(",")];
+  for (const c of Object.keys(guests)) { const g = guests[c]; lines.push([q(g.name), SIDE[g.side] || SIDE.groom, g.size || "", q(g.note || ""), `${SITE}?i=${c}`].join(",")); }
   const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob(["﻿" + lines.join("\r\n")], { type: "text/csv;charset=utf-8" })); a.download = "wedding-guests.csv"; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 1000);
 });
 // ---- import: CSV with a header row (name, size, side, note); one guest per line; names already in the list are skipped ----
