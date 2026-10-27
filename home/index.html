@@ -14,8 +14,11 @@
 :root{--gold:#e2b236;--ink:#f4f1ea}
 html,body{height:100%}
 body{background:#0b0f17;color:var(--ink);overflow:hidden}
-/* ---------- background photo with a slow Ken Burns drift ---------- */
-.bg{position:fixed;inset:-6%;background:url("../assets/photos/home-bokeh.jpg") center/cover no-repeat;animation:drift 70s ease-in-out infinite alternate;will-change:transform;filter:saturate(1.05)}
+/* ---------- background photo with a slow Ken Burns drift ----------
+   Lone tree in Lake Wānaka at sunset, New Zealand — photo by Ken Cheung on Pexels (pexels.com/photo/5348754, Pexels licence).
+   Position 22% 55% keeps the tree in frame on portrait phones, where "cover" crops the sides.
+   Previous background: ../assets/photos/home-bokeh.jpg (abstract), kept in the repo. */
+.bg{position:fixed;inset:-6%;background:url("../assets/photos/home-wanaka.jpg") 22% 55%/cover no-repeat;animation:drift 70s ease-in-out infinite alternate;will-change:transform;filter:saturate(1.02)}
 @keyframes drift{from{transform:scale(1) translate(0,0)}to{transform:scale(1.08) translate(-1.5%,1%)}}
 .shade{position:fixed;inset:0;background:
   radial-gradient(120% 80% at 50% 110%,rgba(5,8,14,.72) 0%,rgba(5,8,14,.25) 45%,transparent 70%),
@@ -51,7 +54,8 @@ body{background:#0b0f17;color:var(--ink);overflow:hidden}
 .tile.w .ic{background:rgba(236,72,153,.28)} .tile.q .ic{background:rgba(226,178,54,.28)} .tile.c .ic{background:rgba(56,189,248,.26)}
 .hint{position:fixed;bottom:8px;left:0;right:0;text-align:center;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;opacity:.45}
 
-@media (max-width:720px){.quote{top:clamp(300px,44vh,500px)}.tiles{gap:10px}.tile{min-width:0;flex:1 1 100px;padding:12px 12px}.tile > span:not(.ic) > span{display:none}.tile b{font-size:13.5px}.tile .ic{width:32px;height:32px;border-radius:9px}.tile .ic svg{width:18px;height:18px}.tile{gap:9px}.hint{display:none}}
+@media (max-width:720px){.bg{background-position:14% 55%}.quote{top:clamp(380px,60vh,620px)}.tiles{gap:10px}.tile{min-width:0;flex:1 1 100px;padding:12px 12px}.tile > span:not(.ic) > span{display:none}.tile b{font-size:13.5px}.tile .ic{width:32px;height:32px;border-radius:9px}.tile .ic svg{width:18px;height:18px}.tile{gap:9px}.hint{display:none}}
+@media (max-width:720px) and (max-height:700px){.quote{top:clamp(300px,46vh,500px)}}
 @media (max-height:520px){.quote{display:none}}
 .noise{position:fixed;inset:0;pointer-events:none;opacity:.05;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E")}
 </style>

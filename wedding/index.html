@@ -12,6 +12,7 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23120a10'/%3E%3Cpath d='M32 50s-15-9.3-19-18.5C10.5 25 14.7 18 21.7 18c4 0 6.8 2.2 10.3 6 3.5-3.8 6.3-6 10.3-6 7 0 11.2 7 8.7 13.5C47 40.7 32 50 32 50z' fill='%23f1a7c1'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500&family=Kantumruy+Pro:wght@400;500;600&family=Moul&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@500&text=%E5%8F%8C%E5%90%91%E5%A5%94%E8%B5%B4%EF%BC%8C%E7%BB%88%E6%9C%89%E5%BD%92%E9%80%94&display=swap">
 <link rel="stylesheet" href="../assets/site.css">
 <style>
 :root{--rose:#f1a7c1;--gold:#e8c27a;--ink:#fbf6f2;--bg:#120a10}
@@ -78,6 +79,9 @@ canvas#petals{position:fixed;inset:0;z-index:1;pointer-events:none}
 section.block{position:relative;z-index:2;padding:clamp(70px,10vw,120px) 20px;max-width:1100px;margin:0 auto}
 h2{font-family:"Great Vibes",cursive;font-weight:400;font-size:clamp(44px,6vw,72px);color:var(--rose);text-align:center;margin:0 0 10px}
 .lead{text-align:center;max-width:640px;margin:0 auto 46px;font-family:"Cormorant Garamond",serif;font-size:clamp(19px,2.2vw,24px);line-height:1.6;opacity:.9}
+#story .lead{margin-bottom:26px}
+.motto{text-align:center;margin:0 auto 46px;color:var(--gold);font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;font-weight:500;font-size:clamp(26px,3.6vw,38px);letter-spacing:.18em;line-height:1.4}
+.motto .en{display:block;margin-top:10px;color:var(--ink);font-family:"Cormorant Garamond",serif;font-style:italic;font-weight:400;font-size:clamp(16px,1.8vw,19px);letter-spacing:0;opacity:.8}
 .reveal{opacity:0;transform:translateY(26px);transition:opacity 1s ease,transform 1s cubic-bezier(.2,.8,.2,1)}
 .reveal.in{opacity:1;transform:none}
 /* gallery */
@@ -189,6 +193,7 @@ footer .heart{color:var(--rose)}
 <section class="block" id="story">
   <h2 class="reveal">Our story</h2>
   <p class="lead reveal" id="storyText">Two people, one road, and a date circled on the calendar. We would love you to share the day with us.</p>
+  <p class="motto reveal" lang="zh-Hans">双向奔赴，终有归途<span class="en">Two hearts running towards each other will always find their way home.</span></p>
 </section>
 
 <section class="block" id="programme">
