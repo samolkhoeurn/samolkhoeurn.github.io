@@ -79,6 +79,7 @@ td.row .btn,td.row button{white-space:nowrap}
         <input id="newNote" placeholder="Private note (phone, Telegram, relation…)" style="flex:1;min-width:180px">
         <button class="primary" id="addBtn">Add guest</button>
         <button id="csvBtn">Download CSV</button>
+        <button id="impBtn" title="CSV with columns: name, size, side, note">Import CSV</button><input id="impFile" type="file" accept=".csv,text/csv" hidden>
         <button id="outBtn">Sign out</button>
       </div>
       <div class="msg" id="msg"></div>
@@ -178,6 +179,32 @@ $("csvBtn").addEventListener("click", () => {
   for (const c of Object.keys(guests)) { const g = guests[c], r = rsvps[c]; lines.push([q(g.name), SIDE[g.side] || SIDE.groom, g.size || "", q(g.note || ""), r ? (r.attending ? "joining" : "declined") : "no reply", r?.attending ? r.count : "", q(r?.names || ""), r?.updatedAt ? new Date(r.updatedAt).toISOString().slice(0, 16).replace("T", " ") : "", `${SITE}?i=${c}`].join(",")); }
   const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob(["﻿" + lines.join("\r\n")], { type: "text/csv;charset=utf-8" })); a.download = "wedding-guests.csv"; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 1000);
 });
+// ---- import: CSV with a header row (name, size, side, note); one guest per line; names already in the list are skipped ----
+$("impBtn").addEventListener("click", () => $("impFile").click());
+$("impFile").addEventListener("change", async () => {
+  const f = $("impFile").files[0]; if (!f) return; const text = (await f.text()).replace(/^\ufeff/, "");
+  const rows = parseCsv(text); if (rows.length < 2) return flash("The file has no data rows.", false);
+  const head = rows[0].map((h) => h.trim().toLowerCase()), col = (k) => head.indexOf(k);
+  const iName = col("name"), iSize = col("size"), iSide = col("side"), iNote = col("note");
+  if (iName < 0) return flash("The first line must contain a 'name' column.", false);
+  const existing = new Set(Object.values(guests).map((g) => g.name.trim()));
+  let added = 0, skipped = 0, failed = 0;
+  $("impBtn").disabled = true;
+  for (const r of rows.slice(1)) {
+    const name = (r[iName] || "").trim(); if (!name) continue;
+    if (existing.has(name)) { skipped++; continue; }
+    const g = { name, size: Math.max(1, Math.min(20, Number(iSize >= 0 ? r[iSize] : 0) || 1)), side: ["groom", "bride", "both"].includes((r[iSide] || "").trim().toLowerCase()) ? r[iSide].trim().toLowerCase() : "groom", note: (iNote >= 0 ? r[iNote] || "" : "").trim().slice(0, 300), createdAt: Date.now() };
+    const code = newCode();
+    try { await setDoc(doc(db, "guests", code), g); guests[code] = g; existing.add(name); added++; $("msg").textContent = `Importing… ${added}`; } catch (e) { failed++; }
+  }
+  $("impBtn").disabled = false; $("impFile").value = ""; render();
+  flash(`Imported ${added} guest${added === 1 ? "" : "s"}${skipped ? `, skipped ${skipped} already in the list` : ""}${failed ? `, ${failed} failed` : ""}.`, !failed);
+});
+function parseCsv(t) { const out = []; let row = [], cell = "", q = false;
+  for (let i = 0; i < t.length; i++) { const ch = t[i];
+    if (q) { if (ch === '"') { if (t[i + 1] === '"') { cell += '"'; i++; } else q = false; } else cell += ch; }
+    else if (ch === '"') q = true; else if (ch === ",") { row.push(cell); cell = ""; } else if (ch === "\n" || ch === "\r") { if (ch === "\r" && t[i + 1] === "\n") i++; row.push(cell); out.push(row); row = []; cell = ""; } else cell += ch; }
+  if (cell !== "" || row.length) { row.push(cell); out.push(row); } return out.filter((r) => r.some((c) => c.trim() !== "")); }
 function copy(t) { navigator.clipboard?.writeText(t).catch(() => {}); }
 </script>
 </body>
